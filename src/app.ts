@@ -1,9 +1,13 @@
+//express
 import express from 'express';
+const app = express();
+
+//security
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimiter from 'express-rate-limit';
-
-const app = express();
+import { notFoundMiddleware } from './middleware/not-found';
+import { errorHandlerMiddleware } from './middleware/error-handler';
 
 app.use(
    express.json(),
@@ -16,7 +20,11 @@ app.use(
 );
 
 app.get('/', (req, res) => {
+   throw new Error("there is a problem")
    res.send('e-commerce api');
 });
+
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 export { app };
