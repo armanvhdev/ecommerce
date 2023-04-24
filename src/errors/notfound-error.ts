@@ -3,7 +3,7 @@ import { CustomError } from './custom-error';
 
 class NotFoundError extends CustomError {
    statusCode: number;
-   constructor(msg: string, statusCode: number) {
+   constructor(msg: string, statusCode?: number) {
       super(msg,statusCode);
       this.statusCode = StatusCodes.NOT_FOUND;
    }
