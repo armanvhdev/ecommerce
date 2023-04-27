@@ -6,9 +6,19 @@ const app = express();
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimiter from 'express-rate-limit';
+
+//logger
+import morgan from 'morgan';
+
+//routes
+import { routesHandler } from './routes/router';
+
 import { notFoundMiddleware } from './middleware/not-found';
 import { errorHandlerMiddleware } from './middleware/error-handler';
 
+if (process.env.NODE_ENV == 'Developer') {
+   app.use(morgan('tiny'));
+}
 app.use(
    express.json(),
    cors(),
@@ -20,11 +30,12 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-   throw new Error("there is a problem")
    res.send('e-commerce api');
 });
 
-app.use(notFoundMiddleware)
-app.use(errorHandlerMiddleware)
+app.use('/api/v1', routesHandler);
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 export { app };
