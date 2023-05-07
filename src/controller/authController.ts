@@ -3,8 +3,7 @@ import { User } from '../entities/User';
 import { generateHash } from '../utils/password-hash';
 import { StatusCodes } from 'http-status-codes';
 import CustomError from '../errors';
-import { createToken } from '../utils/sign-jwt';
-import { verifyToken } from '../utils/verify-jwt';
+import { attachCookiesToResponse } from '../utils';
 
 const register = async (req: Request, res: Response): Promise<void> => {
    const { email, name, password } = req.body;
@@ -22,15 +21,17 @@ const register = async (req: Request, res: Response): Promise<void> => {
 
    const user = User.create({ email, name, password: passwordHash, role });
 
+   await user.save();
+
    const tokenUser = { name: user.name, userId: user.id, role: user.role };
 
-   const token = createToken(tokenUser);
-   await user.save();
-   res.status(StatusCodes.CREATED).json({ user, token: `Bearer ${token}` });
+   attachCookiesToResponse({ res, user: tokenUser });
+
+   res.status(StatusCodes.CREATED).json({ tokenUser });
 };
 
 const login = async (req: Request, res: Response) => {
-   res.send('login user')
+   res.send('login user');
 };
 
 const logout = async (req: Request, res: Response) => {
