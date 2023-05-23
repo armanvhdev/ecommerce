@@ -2,7 +2,7 @@
    "name": "e-commerce",
    "version": "1.0.0",
    "description": "",
-   "main": "app.ts",
+   "main": "server.ts",
    "scripts": {
       "dev": "cross-env NODE_ENV=Developer nodemon -x ts-node src/server.ts"
    },
@@ -14,7 +14,9 @@
    },
    "dependencies": {
       "@types/bcrypt": "^5.0.0",
+      "@types/cookie-parser": "^1.4.3",
       "@types/cors": "^2.8.13",
+      "@types/dotenv": "^8.2.0",
       "@types/express": "^4.17.17",
       "@types/jsonwebtoken": "^9.0.2",
       "@types/morgan": "^1.9.4",
