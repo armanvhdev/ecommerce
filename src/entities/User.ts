@@ -32,7 +32,7 @@ export class User extends BaseEntity {
    @MaxLength(50, { message: 'تعداد حروف نام نباید بیشتر از 50 باشد' })
    name: string;
 
-   @Column({ length: 50 })
+   @Column({ length: 200 })
    @IsNotEmpty({ message: 'رمز عبور نمیتواند خالی باشد' })
    @IsString({ message: 'لطفامقدار درست راوارد کنید' })
    @MinLength(6, { message: 'تعداد حروف رمز عبور نباید کمتر از 6 باشد' })
