@@ -1,7 +1,7 @@
 //environment variable
 import dotenv from 'dotenv';
-import 'express-async-errors';
 dotenv.config({ path: './config/config.env' });
+import 'express-async-errors';
 
 //main application
 import { app } from './app';
